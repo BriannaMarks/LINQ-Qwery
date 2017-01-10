@@ -59,7 +59,9 @@ namespace LINQ_Assignment
             var chosenWord = Console.ReadLine().ToUpper();
             foreach (char letter in chosenWord)
             {
-                wordChosen.Add(letter.ToString());   
+                wordChosen.Add(letter.ToString());
+                wordChosen.Sort();
+
             }
             var wordQuery = wordChosen.GroupBy(x => x[0]);
             foreach (var letter in wordQuery)
