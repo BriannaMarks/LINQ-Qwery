@@ -23,34 +23,31 @@ namespace LINQ_Assignment
         }
         public void AveragingFunction()
         {
-            List<int> studentScore = new List<int>();
+            List<double> studentScore = new List<double>();
             List<string> studentGrades = new List<string>();
-            studentGrades.Add("97 92 86 60");
-            studentGrades.Add("96 80 91 57");
-            studentGrades.Add("99 88 82 74");
-            studentGrades.Add("75 84 31 89");
+            studentGrades.Add("97,92,86,60");
+            studentGrades.Add("96,80,91,57");
+            studentGrades.Add("99,88,82,74");
+            studentGrades.Add("75,84,31,89");
             foreach (var grade in studentGrades)
             {
                 List<int> averagingList = new List<int>();
-                string[] space = grade.Split(' ');
-                foreach (string number in space)
+                string[] comma = grade.Split(',');
+                foreach (string number in comma)
                 {
                     var actualNumber = int.Parse(number);
                     averagingList.Add(actualNumber);
                 }
                 var lowGrade = (from x in averagingList select x).Min();
                 averagingList.Remove(lowGrade);
-                var gradeCount = (from personalGrade in averagingList select personalGrade).Count();
-                var gradeSum = (from personalGrade in averagingList select personalGrade).Sum();
-                var NewAverage = (gradeSum / gradeCount);
-                var classAverage = NewAverage/gradeCount;
+
+                var NewAverage = Math.Round(averagingList.Average(), 1);
 
                 Console.WriteLine("Student Average Grade:{0}", NewAverage);
                 studentScore.Add(NewAverage);
-            }
-                var numberOfKids = 4;
-                var averageClassGrade = ((from kids in studentScore select kids).Sum()/ numberOfKids);
+                var averageClassGrade = Math.Round(studentScore.Average(), 1);
                 Console.WriteLine("Class Average Grade:{0}", averageClassGrade);
+            }
         }
         public void LetterFrequency()
         {
@@ -61,13 +58,13 @@ namespace LINQ_Assignment
             {
                 wordChosen.Add(letter.ToString());
                 wordChosen.Sort();
-
             }
             var wordQuery = wordChosen.GroupBy(x => x[0]);
             foreach (var letter in wordQuery)
             {
-                Console.Write("In this word there are {0} {1}'s \r\n", letter.Count(), letter.Key);
+                Console.Write("{0}{1}", letter.Key, letter.Count());
             }
+            
         }
     }
 }
